@@ -1,25 +1,24 @@
 package main
 
 import (
-	"github.com/ejunjsh/gorest"
+	"gorest"
 )
 
-func main(){
-	app:=gorest.NewApp()
+func main() {
+	app := 	.NewApp()
 	app.Get("/json", func(r *gorest.HttpRequest, w gorest.HttpResponse) error {
-		a:= struct {
+		a := struct {
 			Abc string `json:"abc"`
 			Cba string `json:"cba"`
-		}{"123","321"}
+		}{"123", "321"}
 		return w.WriteJson(a)
 	})
 
-
-	app.Error(func(err error, r *gorest.HttpRequest, w gorest.HttpResponse){
-		if e,ok:=err.(gorest.NoFoundError);ok {
+	app.Error(func(err error, r *gorest.HttpRequest, w gorest.HttpResponse) {
+		if e, ok := err.(gorest.NoFoundError); ok {
 			w.Write([]byte(e.Error()))
 		}
-		if e,ok:=err.(gorest.InternalError);ok {
+		if e, ok := err.(gorest.InternalError); ok {
 			w.Write([]byte(e.Error()))
 		}
 	})
